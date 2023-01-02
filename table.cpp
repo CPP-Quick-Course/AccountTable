@@ -1,42 +1,4 @@
-#include "classes.h"
-
-int Person::getId() const {
-    return id;
-}
-std::string Person::getType() const {
-    return type;
-}
-std::string Person::getName() const {
-    return name;
-}
-std::string Person::getPhone() const {
-    return phone;
-}
-std::string Person::getMail() const {
-    return mail;
-}
-void Person::setId(int id){
-    this->id = id;
-}
-void Person::setType(std::string type){
-    this->type = type;
-}
-void Person::setName(std::string name){
-    this->name = name;
-}
-void Person::setPhone(std::string phone){
-    this->phone = phone;
-}
-void Person::setMail(std::string mail){
-    this->mail = mail;
-}
-
-std::string Employee::getDepartment() const{
-    return department;
-}
-void Employee::setDepartment(const std::string& dep){
-    this->department = dep;
-}
+#include "table.h"
 
 Table Table::table_;
 size_t Table::id_max_size = 2;
@@ -60,11 +22,21 @@ void filler(Stream& stream, char c, const size_t& cnt){
     stream << "+" << std::endl;
 }
 
+bool compare_set_field(size_t& to_field, const size_t& from_field){
+    if(to_field < from_field){
+        to_field = from_field;
+        return true;
+    }
+    return false;
+}
+
 Table::~Table(){
     std::ofstream f_stream;
+
     if (path.find(".txt") == std::string::npos) {
         path += ".txt";
     }
+
     f_stream.open(path, std::ios::out);
     const std::map<std::string, size_t> column{ {"id",id_max_size},{"name",name_max_size},{"type",type_max_size},
         {"phone",phone_max_size},{"mail",mail_max_size},{"department",department_max_size} };
@@ -72,6 +44,7 @@ Table::~Table(){
     std::for_each(column.begin(),column.end(),[&](const auto& element){
         sum+=element.second;
     });
+
     filler(f_stream,'-',sum);
     f_stream << std::left << std::setfill(' ') << std::setw(sum) << "| ACCOUNTS" << " |" << std::endl;
     f_stream << std::flush;
@@ -84,6 +57,7 @@ Table::~Table(){
         c.second->getAllData(f_stream,column);
         filler(f_stream,'-',sum);
     }
+
     f_stream.close();
 }
 

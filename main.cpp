@@ -1,6 +1,13 @@
-#include "classes.h"
+#include "table.h"
+#include "person.h"
+#include "customer.h"
+#include "employee.h"
+#include "director.h"
+#include <iostream>
+
 int main(){
     Table* table = Table::GetInstance("AccountTable");
+
     while(true){
         char command;
         std::cout << "Enter command: ";
@@ -46,6 +53,5 @@ int main(){
             std::cout << "Wrong command.\nAvailable commands:\na - add account\nd - delete account\nc - clear all\ne - exit\n";
         }
     }
-    std::cout << '\n';
     return 0;
 }
