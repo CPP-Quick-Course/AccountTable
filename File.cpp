@@ -20,7 +20,7 @@ void File::writeTable(Table* table)
 	m_file << table->getHeader();
 	for (int i = 0; i < table->getRowsCount(); ++i)
 	{
-		m_file << table->getRow(i) << std::endl;
+		m_file << table->getStrRow(i) << std::endl;
 		m_file << table->getFooter() << std::endl;
 	}
 }

@@ -7,17 +7,7 @@ class Table
 {
 	static Table* m_instance;
 
-	struct Row
-	{
-		std::string m_ID;
-		std::string m_type;
-		std::string m_name;
-		std::string m_phone;
-		std::string m_mail;
-		std::string m_department;
-	};
-
-	std::vector<Row> rows;
+	std::vector<Person*> rows;
 
 	Table();
 
@@ -30,7 +20,7 @@ public:
 	void deleteRow(int accountID);
 	void clearTable();
 	int getRowsCount();
-	std::string getRow(int index);
+	std::string getStrRow(int index);
 	std::string getHeader();
 	std::string getFooter();
 };

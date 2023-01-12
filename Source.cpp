@@ -68,7 +68,7 @@ void createAccount(Table* table)
 		std::cin >> accountType;
 	} while (accountType!='d' && accountType != 'e' && accountType != 'c');
 	
-	std::vector<std::string> data = enterData(accountType);
+	std::vector<std::string> data(enterData(accountType));
 	
 	switch (accountType)
 	{

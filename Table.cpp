@@ -20,39 +20,14 @@ Table* Table::getInstance()
 
 void Table::addRow(Person* person)
 {
-	Row row;
-	row.m_ID = std::to_string(person->getID());
-	row.m_ID.resize(3, ' ');
-
-	row.m_type = person->getType();
-	row.m_type.resize(8, ' ');
-
-	row.m_name = person->getName();
-	row.m_name.resize(19, ' ');
-
-	row.m_phone = person->getPhone();
-	row.m_phone.resize(13, ' ');
-
-	row.m_mail = person->getMail();
-	row.m_mail.resize(17, ' ');
-
-	Director* director = dynamic_cast<Director*>(person);
-	if (director != NULL)
-	{
-		row.m_department = director->getDepartment();
-	}
-	row.m_department.resize(23, ' ');
-
-	rows.push_back(row);
+	rows.push_back(person);
 }
 
 void Table::deleteRow(int accountID)
 {
-	int ID;
 	for (int i = 0; i < rows.size(); ++i)
 	{
-		ID = std::stoi(rows.at(i).m_ID);
-		if (ID == accountID)
+		if (rows[i]->getID() == accountID)
 		{
 			rows.erase(rows.begin() + i);
 		}
@@ -69,11 +44,33 @@ int Table::getRowsCount()
 	return rows.size();
 }
 
-std::string Table::getRow(int index)
+std::string Table::getStrRow(int index)
 {
-	Row row = rows.at(index);
-	return "| " + row.m_ID + " | " + row.m_type + " | " + row.m_name + " | "
-		+ row.m_phone + " | " + row.m_mail + " | " + row.m_department + " |";
+	std::string id(std::to_string(rows[index]->getID()));
+	id.resize(3, ' ');
+
+	std::string type(rows[index]->getType());
+	type.resize(8, ' ');
+
+	std::string name(rows[index]->getName());
+	name.resize(19, ' ');
+
+	std::string phone(rows[index]->getPhone());
+	phone.resize(13, ' ');
+
+	std::string mail(rows[index]->getMail());
+	mail.resize(17, ' ');
+
+	std::string department;
+	Director* director = dynamic_cast<Director*>(rows[index]);
+	if (director != NULL)
+	{
+		department = director->getDepartment();
+	}
+	department.resize(23, ' ');
+
+	return "| " + id + " | " + type + " | " + name + " | "
+		+ phone + " | " + mail + " | " + department + " |";
 }
 
 std::string Table::getHeader()
