@@ -6,6 +6,6 @@ Employee::Employee()
 }
 
 Employee::Employee(std::string name, std::string phone, std::string mail)
-	: Person("Director", name, phone, mail)
+	: Person("Employee", name, phone, mail)
 {
 }
